@@ -1,11 +1,6 @@
-// List of all names
-$list-names: julien, john, sam, damian;
-
-// Use the photos module for the image-url function
-@use "partials/photos" as photos;
+// Creates classes for each list name and styles
+@import '11-photos';
 
 @each $name in $list-names {
-  .photo-#{$name} {
-    background: photos.image-url("photos/#{$name}.jpg") no-repeat;
+    background-image: "photos/#{$name}.jpeg";
   }
-}
