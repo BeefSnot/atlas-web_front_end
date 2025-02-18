@@ -1,11 +1,11 @@
 // List of all names
-$list-names: julien john sam damian;
+$list-names: julien, john, sam, damian;
 
-// Loop through names and make classes
-@import "partials/photos"; // Importing a part of a file for image-url function
+// Use the photos module for the image-url function
+@use "partials/photos" as photos;
 
 @each $name in $list-names {
   .photo-#{$name} {
-    background: image-url("photos/#{$name}.jpg") no-repeat;
+    background: photos.image-url("photos/#{$name}.jpg") no-repeat;
   }
 }
