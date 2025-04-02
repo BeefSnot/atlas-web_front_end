@@ -20,3 +20,4 @@ function divideBy(firstNumber) {
   console.log(divideBy10(20)); // 2
   console.log(divideBy100(200)); // 2
   console.log(addBy1000(20)); // 1020
+  

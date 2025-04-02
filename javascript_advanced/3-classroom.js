@@ -19,3 +19,4 @@ function createClassRoom(numbersOfStudents) {
   console.log(classRoom[0]());
   console.log(classRoom[3]());
   console.log(classRoom[9]());
+  

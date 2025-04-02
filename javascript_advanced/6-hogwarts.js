@@ -39,3 +39,4 @@ class studentHogwarts {
   draco.penalizeStudent();
   draco.penalizeStudent();
   console.log(draco.getScore()); // Draco: -2
+  
