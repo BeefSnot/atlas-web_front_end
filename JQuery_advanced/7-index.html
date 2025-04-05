@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 7</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    </head>
+
+    <body>
+        <script type="application/javascript">
+            function createSearchForm() {
+                const form = $('<form></form>');
+                const input = $('<input type="text" placeholder="Search Wikipedia">');
+                const submitButton = $('<input type="submit" value="Search">');
+                const resultsList = $('<ul></ul>');
+
+                form.append(input, submitButton);
+                $('body').append(form, resultsList);
+
+                form.submit(function (event) {
+                    event.preventDefault();
+                    const searchQuery = input.val();
+                    queryWikipedia(searchQuery);
+                });
+            }
+
+            function addNewArticle(id, title, snippet) {
+                const listItem = $('<li></li>').append(
+                    $('<p></p>').append(
+                        $('<span></span>').text(`id - `),
+                        $('<b></b>').text(title)
+                    ),
+                    $('<p></p>').html(snippet// Use .html to display HTML content
+                );
+
+                $('ul').append(listItem);
+            }
+
+            function queryWikipedia(search) {
+                const data = {
+                    action: 'query',
+                    format: 'json',
+                    list: 'search',
+                    srsearch: search,
+                    origin: '*'
+                };
+
+                $.get('https://en.wikipedia.org/w/api.php', data, function (response) {
+                    const results = response.query.search;
+                    $('ul').empty();
+                    results.forEach(result => {
+                        addNewArticle(result.pageid, result.title, result.snippet);
+                    });
+                }).fail(function () {
+                    alert('Error fetching data from Wikipedia');
+                });
+            }
+
+            createSearchForm();
+        </script>
+    </body>
+
+</html>
