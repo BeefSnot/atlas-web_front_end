@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Task 12</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+  <script type="application/javascript">
+    function buildForm() {
+      const form = $('<form></form>');
+      const authorDiv = $('<div></div>').append(
+        $('<label for="author">Author</label>'),
+        $('<input type="text" id="author">')
+      );
+      const titleDiv = $('<div></div>').append(
+        $('<label for="title">Title</label>'),
+        $('<textarea id="title"></textarea>')
+      );
+      const submitButton = $('<input type="submit" value="Submit">');
+
+      form.append(authorDiv, titleDiv, submitButton);
+      $('body').append(form);
+      form.submit(function (event) {
+        event.preventDefault();
+        sendForm();
+      });
+    }
+
+    function sendForm() {
+      $('form').after('<p>About to send the query to the API</p>');
+
+      const data = {
+        author: $('#author').val(),
+        title: $('#title').val()
+      };
+
+      $.post('http://localhost:3000/posts', data, function (response) {
+        addPostRow(response);
+      }).fail(function () {
+        alert('Error sending the POST query');
+      });
+    }
+
+    function addPostRow(data) {
+      const row = $('<p></p>').html(
+        `<span>Post created with id ${data.id}, title: ${data.title}, author: ${data.author}</span>`
+      );
+      $('body').append(row);
+    }
+
+    function listPosts() {
+      $.get('http://localhost:3000/posts', function (posts) {
+        posts.forEach(post => {
+          addPostRow(post);
+        });
+      }).fail(function () {
+        alert('Error fetching posts');
+      });
+    }
+
+    $(document).ready(function () {
+      buildForm();
+      listPosts();
+    });
+  </script>
+</body>
+
+</html>
