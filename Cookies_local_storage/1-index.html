@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task 1</title>
+</head>
+<body>
+  <input type="text" id="firstname" placeholder="Firstname">
+  <input type="text" id="email" placeholder="Email">
+  <button onclick="setCookies()">Log me in</button>
+  <button onclick="showCookies()">Show the cookies</button>
+
+  <script>
+    function setCookies() {
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 10);
+      document.cookie = `firstname=${document.getElementById('firstname').value}; expires=${expiryDate.toUTCString()}; path=/`;
+      document.cookie = `email=${document.getElementById('email').value}; expires=${expiryDate.toUTCString()}; path=/`;
+    }
+
+    function showCookies() {
+      const p = document.createElement('p');
+      p.innerHTML = `Cookies: ${document.cookie}`;
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+</html>
