@@ -3,33 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task 1</title>
+    <title>Task 2</title>
+    <style>
+        .form-group { margin-bottom: 15px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h2>Login to the website</h2>
-        </header>
-        <div class="login-form">
-            <input type="text" id="firstname" placeholder="Firstname">
-            <input type="email" id="email" placeholder="Email">
-            <button id="login-button">Log me in</button>
-        </div>
-        <hr>
-        <header>
-            <h2>Cookies</h2>
-        </header>
-        <button id="show-button">Show the cookies</button>
+    <article class="login-section">
+        <h2>Login to the website</h2>
+        <form id="login-form" onsubmit="return false;">
+            <div class="form-group">
+                <input type="text" id="firstname" placeholder="Firstname">
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="setCookies()">Log me in</button>
+            </div>
+        </form>
+    </article>
+    
+    <article class="cookies-section">
+        <h2>Cookies</h2>
+        <button type="button" onclick="showCookies()">Show the cookies</button>
         <div id="cookie-container"></div>
-    </div>
+    </article>
 
     <script>
-        // Add event listeners when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('login-button').addEventListener('click', setCookies);
-            document.getElementById('show-button').addEventListener('click', showCookies);
-        });
-
         function setCookies() {
             const firstname = document.getElementById('firstname').value;
             const email = document.getElementById('email').value;
