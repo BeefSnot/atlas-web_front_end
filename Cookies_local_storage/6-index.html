@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 6</title>
+    <style>
+        .page-content { max-width: 800px; margin: 0 auto; }
+        .input-control { display: block; margin: 8px 0; }
+        .action-control { margin-top: 12px; }
+        .section-divider { margin: 20px 0; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <div class="page-content">
+        <div class="login-panel">
+            <h2>Login to the website</h2>
+            <fieldset>
+                <legend>User Information</legend>
+                <input type="text" id="firstname" class="input-control" placeholder="Firstname">
+                <input type="email" id="email" class="input-control" placeholder="Email">
+                <div class="action-control">
+                    <button type="button" data-action="login">Log me in</button>
+                </div>
+            </fieldset>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <div class="cookies-panel">
+            <h2>Cookies</h2>
+            <div class="action-control">
+                <button type="button" data-action="show-cookies">Show the cookies</button>
+            </div>
+            <div id="cookie-container" class="display-area"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', function(event) {
+                if (event.target.matches('[data-action="login"]')) {
+                    setCookies();
+                } else if (event.target.matches('[data-action="show-cookies"]')) {
+                    showCookies();
+                }
+            });
+            
+            function setCookies() {
+                const firstname = document.getElementById('firstname').value;
+                const email = document.getElementById('email').value;
+
+                document.cookie = `firstname=${firstname}; path=/`;
+                document.cookie = `email=${email}; path=/`;
+            }
+
+            function showCookies() {
+                const cookies = document.cookie;
+                const container = document.getElementById('cookie-container');
+
+                container.innerHTML = '';
+
+                const p = document.createElement('p');
+                p.innerHTML = `Cookies: ${cookies}`;
+
+                container.appendChild(p);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,28 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Task 1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1</title>
 </head>
 <body>
-  <input type="text" id="firstname" placeholder="Firstname">
-  <input type="text" id="email" placeholder="Email">
-  <button onclick="setCookies()">Log me in</button>
-  <button onclick="showCookies()">Show the cookies</button>
+    <div class="container">
+        <header>
+            <h2>Login to the website</h2>
+        </header>
+        <div class="login-form">
+            <input type="text" id="firstname" placeholder="Firstname">
+            <input type="email" id="email" placeholder="Email">
+            <button id="login-button">Log me in</button>
+        </div>
+        <hr>
+        <header>
+            <h2>Cookies</h2>
+        </header>
+        <button id="show-button">Show the cookies</button>
+        <div id="cookie-container"></div>
+    </div>
 
-  <script>
-    function setCookies() {
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 10);
-      document.cookie = `firstname=${document.getElementById('firstname').value}; expires=${expiryDate.toUTCString()}; path=/`;
-      document.cookie = `email=${document.getElementById('email').value}; expires=${expiryDate.toUTCString()}; path=/`;
-    }
+    <script>
+        // Add event listeners when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('login-button').addEventListener('click', setCookies);
+            document.getElementById('show-button').addEventListener('click', showCookies);
+        });
 
-    function showCookies() {
-      const p = document.createElement('p');
-      p.innerHTML = `Cookies: ${document.cookie}`;
-      document.body.appendChild(p);
-    }
-  </script>
+        function setCookies() {
+            const firstname = document.getElementById('firstname').value;
+            const email = document.getElementById('email').value;
+
+            document.cookie = `firstname=${firstname}; path=/`;
+            document.cookie = `email=${email}; path=/`;
+        }
+
+        function showCookies() {
+            const cookies = document.cookie;
+            const container = document.getElementById('cookie-container');
+
+            container.innerHTML = '';
+
+            const p = document.createElement('p');
+            p.innerHTML = `Cookies: ${cookies}`;
+
+            container.appendChild(p);
+        }
+    </script>
 </body>
 </html>

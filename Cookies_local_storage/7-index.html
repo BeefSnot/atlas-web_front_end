@@ -3,43 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task 3</title>
+    <title>Task 7</title>
     <style>
-        section { margin: 20px 0; }
+        .form-section, .cookies-section {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <main>
-        <section>
-            <h2>Login to the website</h2>
-            <div>
-                <label for="firstname">First name:</label>
+        <section class="form-section">
+            <header>
+                <h2>Login to the website</h2>
+            </header>
+            <div class="input-group">
                 <input type="text" id="firstname" placeholder="Firstname">
             </div>
-            <div>
-                <label for="email">Email:</label>
+            <div class="input-group">
                 <input type="email" id="email" placeholder="Email">
             </div>
-            <div>
-                <button type="button" id="loginBtn">Log me in</button>
+            <div class="button-container">
+                <button id="login-btn">Log me in</button>
             </div>
         </section>
         
-        <section>
-            <h2>Cookies</h2>
-            <div>
-                <button type="button" id="cookieBtn">Show the cookies</button>
+        <hr>
+        
+        <section class="cookies-section">
+            <header>
+                <h2>Cookies</h2>
+            </header>
+            <div class="button-container">
+                <button id="cookies-btn">Show the cookies</button>
             </div>
             <div id="cookie-container"></div>
         </section>
     </main>
 
     <script>
-        window.onload = function() {
-            document.getElementById('loginBtn').addEventListener('click', setCookies);
-            document.getElementById('cookieBtn').addEventListener('click', showCookies);
-        };
-
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('login-btn').addEventListener('click', setCookies);
+            document.getElementById('cookies-btn').addEventListener('click', showCookies);
+        });
+        
         function setCookies() {
             const firstname = document.getElementById('firstname').value;
             const email = document.getElementById('email').value;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 5</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .page-section { margin-bottom: 1.5rem; }
+        .actions { margin-top: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="page-section" id="login-area">
+            <h2>Login to the website</h2>
+            <div class="input-wrapper">
+                <div>
+                    <input type="text" id="firstname" placeholder="Firstname">
+                </div>
+                <div>
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+                <div class="actions">
+                    <button type="button" class="action-button" id="set-cookie-btn">Log me in</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-section" id="cookie-area">
+            <h2>Cookies</h2>
+            <div class="actions">
+                <button type="button" class="action-button" id="show-cookie-btn">Show the cookies</button>
+            </div>
+            <div id="cookie-container"></div>
+        </div>
+    </div>
+
+    <script>
+        const CookieManager = {
+            setCookies: function() {
+                const firstname = document.getElementById('firstname').value;
+                const email = document.getElementById('email').value;
+
+                document.cookie = `firstname=${firstname}; path=/`;
+                document.cookie = `email=${email}; path=/`;
+            },
+            
+            showCookies: function() {
+                const cookies = document.cookie;
+                const container = document.getElementById('cookie-container');
+
+                container.innerHTML = '';
+
+                const p = document.createElement('p');
+                p.innerHTML = `Cookies: ${cookies}`;
+
+                container.appendChild(p);
+            },
+            
+            init: function() {
+                document.getElementById('set-cookie-btn').addEventListener('click', this.setCookies);
+                document.getElementById('show-cookie-btn').addEventListener('click', this.showCookies);
+            }
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            CookieManager.init();
+        });
+    </script>
+</body>
+</html>
