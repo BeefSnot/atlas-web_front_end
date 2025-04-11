@@ -6,59 +6,128 @@
     <title>Task 3</title>
     <style>
         section { margin: 20px 0; }
+        #form-container { 
+            display: block; 
+        }
+        .logout-link {
+            font-weight: normal;
+            font-style: italic;
+            margin-left: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-    <main>
-        <section>
-            <h2>Login to the website</h2>
-            <div>
-                <label for="firstname">First name:</label>
-                <input type="text" id="firstname" placeholder="Firstname">
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="Email">
-            </div>
-            <div>
-                <button type="button" id="loginBtn">Log me in</button>
-            </div>
-        </section>
+    <div id="form-container">
+        <h2>Login to the website</h2>
+        <div>
+            <label for="firstname">First name:</label>
+            <input type="text" id="firstname" placeholder="Firstname">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Email">
+        </div>
+        <div>
+            <button type="button" id="loginBtn">Log me in</button>
+        </div>
         
-        <section>
-            <h2>Cookies</h2>
-            <div>
-                <button type="button" id="cookieBtn">Show the cookies</button>
-            </div>
-            <div id="cookie-container"></div>
-        </section>
-    </main>
+        <h2>Cookies</h2>
+        <div>
+            <button type="button" id="cookieBtn">Show the cookies</button>
+        </div>
+        <div id="cookie-container"></div>
+    </div>
 
     <script>
-        window.onload = function() {
-            document.getElementById('loginBtn').addEventListener('click', setCookies);
-            document.getElementById('cookieBtn').addEventListener('click', showCookies);
-        };
-
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return '';
+        }
+        
+        function showForm() {
+            const welcomeMessage = document.getElementById('welcome-message');
+            if (welcomeMessage) {
+                welcomeMessage.remove();
+            }
+            
+            const formContainer = document.getElementById('form-container');
+            formContainer.style.display = 'block';
+        }
+        
+        function hideForm() {
+            const formContainer = document.getElementById('form-container');
+            formContainer.style.display = 'none';
+        }
+        
+        function deleteCookiesAndShowForm() {
+            document.cookie = 'firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            
+            showForm();
+        }
+        
         function setCookies() {
             const firstname = document.getElementById('firstname').value;
             const email = document.getElementById('email').value;
-
-            document.cookie = `firstname=${firstname}; path=/`;
-            document.cookie = `email=${email}; path=/`;
+            
+            if (firstname && email) {
+                document.cookie = `firstname=${firstname}; path=/`;
+                document.cookie = `email=${email}; path=/`;
+                
+                showWelcomeMessageOrForm();
+            }
         }
-
+        
         function showCookies() {
             const cookies = document.cookie;
             const container = document.getElementById('cookie-container');
-
+            
             container.innerHTML = '';
-
+            
             const p = document.createElement('p');
             p.innerHTML = `Cookies: ${cookies}`;
-
+            
             container.appendChild(p);
         }
+        
+        function showWelcomeMessageOrForm() {
+            const firstname = getCookie('firstname');
+            
+            if (firstname) {
+                hideForm();
+                
+                const welcomeMessage = document.createElement('h1');
+                welcomeMessage.id = 'welcome-message';
+                welcomeMessage.textContent = `Welcome ${firstname} `;
+                
+                const logoutLink = document.createElement('span');
+                logoutLink.className = 'logout-link';
+                logoutLink.textContent = '(logout)';
+                logoutLink.addEventListener('click', deleteCookiesAndShowForm);
+                
+                welcomeMessage.appendChild(logoutLink);
+                
+                document.body.appendChild(welcomeMessage);
+            } else {
+                showForm();
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginBtn').addEventListener('click', setCookies);
+            document.getElementById('cookieBtn').addEventListener('click', showCookies);
+            
+            showWelcomeMessageOrForm();
+        });
     </script>
 </body>
 </html>
