@@ -1,67 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Task 3</title>
-</head>
-<body>
-  <div id="form-container">
-    <h2>Login</h2>
-    <input type="text" id="firstname" placeholder="Firstname">
-    <input type="text" id="email" placeholder="Email">
-    <button onclick="setCookies()">Log me in</button>
-  </div>
+<html lang="en" dir="ltr">
 
-  <script>
-    function setCookies() {
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 10);
-      document.cookie = `firstname=${document.getElementById('firstname').value}; expires=${expiryDate.toUTCString()}; path=/`;
-      document.cookie = `email=${document.getElementById('email').value}; expires=${expiryDate.toUTCString()}; path=/`;
-      showWelcomeMessageOrForm();
-    }
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 3</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    </head>
 
-    function deleteCookiesAndShowForm() {
-      document.cookie = 'firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      showForm();
-    }
+    <body>
+        <script type="application/javascript">
+            function createFamilyTree() {
+                $('<table></table>')
+                    .append(
+                        $('<thead></thead>').append(
+                            $('<tr></tr>').append(
+                                $('<th></th>').text('Firstname'),
+                                $('<th></th>').text('Lastname')
+                            )
+                        )
+                    )
+                    .append(
+                        $('<tbody></tbody>').append(
+                            $('<tr></tr>').append(
+                                $('<td></td>').text('Guillaume'),
+                                $('<td></td>').text('Salva')
+                            ),
+                            $('<tr></tr>').append(
+                                $('<td></td>').text('Paulette'),
+                                $('<td></td>').text('Salva')
+                            ),
+                            $('<tr></tr>').append(
+                                $('<td></td>').text('Antoine'),
+                                $('<td></td>').text('Salva')
+                            )
+                        )
+                    )
+                    .appendTo('body');
+            }
 
-    function showForm() {
-      document.getElementById('form-container').style.display = 'block';
-      const welcomeMessage = document.getElementById('welcome-message');
-      if (welcomeMessage) {
-        welcomeMessage.remove();
-      }
-    }
+            createFamilyTree();
+        </script>
+    </body>
 
-    function showWelcomeMessageOrForm() {
-      const firstname = getCookie('firstname');
-      if (firstname) {
-        const formContainer = document.getElementById('form-container');
-        formContainer.style.display = 'none';
-
-        const welcomeMessage = document.createElement('h1');
-        welcomeMessage.id = 'welcome-message';
-        welcomeMessage.innerHTML = `Welcome ${firstname} <a href="#" onclick="deleteCookiesAndShowForm()">logout</a>`;
-        document.body.appendChild(welcomeMessage);
-      } else {
-        showForm();
-      }
-    }
-
-    function getCookie(name) {
-      const cookies = document.cookie.split('; ');
-      for (const cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        if (key === name) {
-          return value;
-        }
-      }
-      return '';
-    }
-
-    showWelcomeMessageOrForm();
-  </script>
-</body>
 </html>

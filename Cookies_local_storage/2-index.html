@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Task 2</title>
-</head>
-<body>
-  <input type="text" id="firstname" placeholder="Firstname">
-  <input type="text" id="email" placeholder="Email">
-  <button onclick="setCookies()">Log me in</button>
-  <button onclick="showCookies()">Show the cookies</button>
+<html lang="en" dir="ltr">
 
-  <script>
-    function setCookies() {
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 10);
-      document.cookie = `firstname=${document.getElementById('firstname').value}; expires=${expiryDate.toUTCString()}; path=/`;
-      document.cookie = `email=${document.getElementById('email').value}; expires=${expiryDate.toUTCString()}; path=/`;
-    }
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 2</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js"></script>
+    </head>
 
-    function getCookie(name) {
-      const cookies = document.cookie.split('; ');
-      for (const cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        if (key === name) {
-          return value;
-        }
-      }
-      return '';
-    }
+    <body>
+        <script type="application/javascript">
+            function createFamilyTree() {
+                const table = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Guillaume</td>
+                                <td>Salva</td>
+                            </tr>
+                            <tr>
+                                <td>Paulette</td>
+                                <td>Salva</td>
+                            </tr>
+                            <tr>
+                                <td>Antoine</td>
+                                <td>Salva</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+                $('body').append(table);
+            }
 
-    function showCookies() {
-      const firstname = getCookie('firstname');
-      const email = getCookie('email');
-      const p = document.createElement('p');
-      p.innerHTML = `Email: ${email} - Firstname: ${firstname}`;
-      document.body.appendChild(p);
-    }
-  </script>
-</body>
+            createFamilyTree();
+        </script>
+    </body>
+
 </html>
